@@ -65,12 +65,12 @@ public class MessageBrokerController : ControllerBase
         var id = Guid.NewGuid();
         _logger.LogInformation($"Sending CrashCommand with id {id}");
         
-        // Should be sent to rabbitmq
+        // Should be sent locally and crash since there is no handler for it.
         var crashCommand = new CrashCommand(id);
         
         try
         {
-            await _bus.InvokeAsync(crashCommand);
+            await _bus.SendAsync(crashCommand);
             return Accepted();
         }
         catch (Exception e)
