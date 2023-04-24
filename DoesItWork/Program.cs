@@ -8,7 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseWolverine(opts =>
 {
     var connectionString = builder.Configuration.GetConnectionString("MessageBroker");
-    opts.UseRabbitMq(new Uri(connectionString));
+    opts.UseRabbitMq(new Uri(connectionString))
+        .UseConventionalRouting()
+        .AutoProvision()
+    ;
 });
 
 // Logger

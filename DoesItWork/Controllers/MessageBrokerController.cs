@@ -23,8 +23,12 @@ public class MessageBrokerController : ControllerBase
     [Route("SendLocalCommand")]
     public async Task<IActionResult> SendLocalCommand()
     {
-        var localCommand = new LocalCommand(Guid.NewGuid());
-        await _bus.SendAsync(localCommand);
+        var id = Guid.NewGuid();
+        _logger.LogInformation($"Sending LocalCommand with id {id}");
+        
+        // Should be received by one handlers
+        var localCommand = new LocalCommand(id);
+        await _bus.InvokeAsync(localCommand);
         return Accepted();
     }
     
@@ -32,8 +36,11 @@ public class MessageBrokerController : ControllerBase
     [Route("SendLocalEvent")]
     public async Task<IActionResult> SendLocalEvent()
     {
+        var id = Guid.NewGuid();
+        _logger.LogInformation($"Publishing LocalEvent with id {id}");
+        
         // Should be received by two handlers
-        var localEvent = new LocalEvent(Guid.NewGuid());
+        var localEvent = new LocalEvent(id);
         await _bus.PublishAsync(localEvent);
         return Accepted();
     }
@@ -42,8 +49,33 @@ public class MessageBrokerController : ControllerBase
     [Route("SendRemoteEvent")]
     public async Task<IActionResult> SendRemoteEvent()
     {
-        var remoteEvent = new RemoteEvent(Guid.NewGuid());
+        var id = Guid.NewGuid();
+        _logger.LogInformation($"Publishing RemoteEvent with id {id}");
+        
+        // Should be sent to rabbitmq
+        var remoteEvent = new RemoteEvent(id);
         await _bus.SendAsync(remoteEvent);
         return Accepted();
+    }
+    
+    [HttpPost]
+    [Route("SendCrashCommand")]
+    public async Task<IActionResult> SendCrashCommand()
+    {
+        var id = Guid.NewGuid();
+        _logger.LogInformation($"Sending CrashCommand with id {id}");
+        
+        // Should be sent to rabbitmq
+        var crashCommand = new CrashCommand(id);
+        
+        try
+        {
+            await _bus.InvokeAsync(crashCommand);
+            return Accepted();
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
     }
 }
