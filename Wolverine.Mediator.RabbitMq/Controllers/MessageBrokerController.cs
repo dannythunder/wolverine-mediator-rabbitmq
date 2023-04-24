@@ -1,10 +1,10 @@
-using DoesItWork.Handlers.Bus.Events;
-using DoesItWork.Handlers.Mediator.Commands;
-using DoesItWork.Handlers.Mediator.Events;
 using Microsoft.AspNetCore.Mvc;
 using Wolverine;
+using Wolverine.Mediator.RabbitMq.Handlers.Bus.Events;
+using Wolverine.Mediator.RabbitMq.Handlers.Mediator.Commands;
+using Wolverine.Mediator.RabbitMq.Handlers.Mediator.Events;
 
-namespace DoesItWork.Controllers;
+namespace Wolverine.Mediator.RabbitMq.Controllers;
 
 [ApiController]
 [Route("[controller]")]

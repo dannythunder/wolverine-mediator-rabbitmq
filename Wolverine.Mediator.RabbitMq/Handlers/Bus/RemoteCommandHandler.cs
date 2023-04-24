@@ -1,6 +1,6 @@
-using DoesItWork.Handlers.Bus.Events;
+using Wolverine.Mediator.RabbitMq.Handlers.Bus.Events;
 
-namespace DoesItWork.Handlers.Bus;
+namespace Wolverine.Mediator.RabbitMq.Handlers.Bus;
 
 public class RemoteCommandHandler
 {

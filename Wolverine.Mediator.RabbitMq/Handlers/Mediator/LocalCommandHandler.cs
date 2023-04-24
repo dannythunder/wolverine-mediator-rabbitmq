@@ -1,6 +1,6 @@
-using DoesItWork.Handlers.Mediator.Commands;
+using Wolverine.Mediator.RabbitMq.Handlers.Mediator.Commands;
 
-namespace DoesItWork.Handlers.Mediator;
+namespace Wolverine.Mediator.RabbitMq.Handlers.Mediator;
 
 public class LocalCommandHandler
 {

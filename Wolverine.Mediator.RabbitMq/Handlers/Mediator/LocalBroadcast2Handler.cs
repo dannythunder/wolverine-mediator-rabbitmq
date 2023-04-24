@@ -1,6 +1,6 @@
-using DoesItWork.Handlers.Mediator.Events;
+using Wolverine.Mediator.RabbitMq.Handlers.Mediator.Events;
 
-namespace DoesItWork.Handlers.Mediator;
+namespace Wolverine.Mediator.RabbitMq.Handlers.Mediator;
 
 public class LocalBroadcast2Handler
 {
