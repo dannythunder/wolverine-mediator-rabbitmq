@@ -1,10 +1,15 @@
 using Serilog;
 using Wolverine;
+using Wolverine.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Wolverine
-builder.Host.UseWolverine();
+builder.Host.UseWolverine(opts =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("MessageBroker");
+    opts.UseRabbitMq(new Uri(connectionString));
+});
 
 // Logger
 builder.Host.UseSerilog((context, config) =>
