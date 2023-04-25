@@ -9,9 +9,12 @@ builder.Host.UseWolverine(opts =>
 {
     var connectionString = builder.Configuration.GetConnectionString("MessageBroker");
     opts.UseRabbitMq(new Uri(connectionString))
-        .UseConventionalRouting()
-        .AutoProvision()
-        .PrefixIdentifiers("prefix2000");
+        .UseConventionalRouting() // Should route message from message type name exchange, to queue with same name?
+        .AutoProvision() // Creates all queues and stuff in RabbitMQ
+        .PrefixIdentifiers("prefix2000"); // Prefixes queues. Duh.
+    
+        // How to specify that a certain message is internal mediator, and another is an external event via rabbit?
+        // see handlers and messages in /Handlers/Bus and /Handlers/Mediator
 });
 
 // Logger
