@@ -1,3 +1,4 @@
+using Oakton;
 using Serilog;
 using Wolverine;
 using Wolverine.RabbitMQ;
@@ -12,11 +13,10 @@ builder.Services.AddSwaggerGen();
 builder.Host.UseWolverine(opts =>
 { 
     var connectionString = builder.Configuration.GetConnectionString("MessageBroker");
-
+    
     opts.UseRabbitMq(new Uri(connectionString))
         .AutoProvision()
         .UseConventionalRouting();
-        //.PrefixIdentifiers("receiver");
 });
 
 // Logger
@@ -33,4 +33,4 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-app.Run();
+return await app.RunOaktonCommands(args);

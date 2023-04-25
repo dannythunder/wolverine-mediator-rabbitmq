@@ -1,6 +1,9 @@
+using Oakton;
 using Serilog;
 using Wolverine;
 using Wolverine.Mediator.RabbitMq;
+using Wolverine.Mediator.RabbitMq.Handlers.Mediator.Commands;
+using Wolverine.Mediator.RabbitMq.Handlers.Mediator.Events;
 using Wolverine.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,24 +15,17 @@ builder.Services.AddSwaggerGen();
 // Wolverine
 builder.Host.UseWolverine(opts =>
 {
-    // This makes messages in said assembly being sent locally, does not stop rabbitmq creating queues
     opts.Publish().MessagesFromAssembly(AssemblyInformation.ASSEMBLY).Locally();
     
     var connectionString = builder.Configuration.GetConnectionString("MessageBroker");
+    
     opts.UseRabbitMq(new Uri(connectionString))
         .AutoProvision()
-        .UseConventionalRouting();
-        //.PrefixIdentifiers("sender"); // Prefixes queues. Duh.; But also fore exchanges, why? 
-
-    
-    // I THINK code above solves most of this:
-    
-    // How to specify that a certain message / namespace is an internal mediator, and another is an external event via rabbit?
-    // Is it still possible to use the auto discovery thingy when using both?
-    // see handlers and messages in /Handlers/Bus and /Handlers/Mediator (Obsolete, moved Bus to sender project)
-
-    // As for now, everything gets set up in rabbitmq.
-    // This is not the desired state
+        .UseConventionalRouting(x => x
+            .ExcludeTypes(type => type == typeof(LocalEvent))
+            .ExcludeTypes(type => type == typeof(CrashCommand))
+            .ExcludeTypes(type => type == typeof(LocalCommand))
+        );
 });
 
 // Logger
@@ -50,4 +46,5 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-app.Run();
+
+return await app.RunOaktonCommands(args);
