@@ -26,7 +26,7 @@ builder.Host.UseWolverine(opts =>
     
     // How to specify that a certain message / namespace is an internal mediator, and another is an external event via rabbit?
     // Is it still possible to use the auto discovery thingy when using both?
-    // see handlers and messages in /Handlers/Bus and /Handlers/Mediator
+    // see handlers and messages in /Handlers/Bus and /Handlers/Mediator (Obsolete, moved Bus to sender project)
 
     // As for now, everything gets set up in rabbitmq.
     // This is not the desired state
