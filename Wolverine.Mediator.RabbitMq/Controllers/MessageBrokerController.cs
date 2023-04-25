@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Wolverine;
 using Wolverine.Mediator.RabbitMq.Handlers.Bus.Events;
 using Wolverine.Mediator.RabbitMq.Handlers.Mediator.Commands;
 using Wolverine.Mediator.RabbitMq.Handlers.Mediator.Events;
@@ -71,7 +70,7 @@ public class MessageBrokerController : ControllerBase
         try
         {
             await _bus.SendAsync(crashCommand);
-            return Accepted();
+            return Accepted("What? Should have crashed, right?");
         }
         catch (Exception e)
         {

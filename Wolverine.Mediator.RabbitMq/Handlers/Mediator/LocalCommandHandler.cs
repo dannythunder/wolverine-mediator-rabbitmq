@@ -6,6 +6,7 @@ public class LocalCommandHandler
 {
     public void Handle(LocalCommand command, ILogger<LocalCommandHandler> logger)
     {
-        logger.LogInformation($"Local command with id {command.Id} was received in LocalCommandHandler");
+        var className = GetType().Name;
+        logger.LogInformation($"{command.GetType().Name} with id {command.Id} was received in {className}");
     }
 }

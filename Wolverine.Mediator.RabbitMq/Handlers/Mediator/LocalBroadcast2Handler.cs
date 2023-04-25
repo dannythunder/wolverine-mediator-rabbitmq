@@ -6,6 +6,7 @@ public class LocalBroadcast2Handler
 {
     public void Handle(LocalEvent @event, ILogger<LocalBroadcast2Handler> logger)
     {
-        logger.LogInformation($"Local event with id {@event.Id} was received in LocalBroadcast_2_Handler");
+        var className = GetType().Name;
+        logger.LogInformation($"{@event.GetType().Name} with id {@event.Id} was received in {className}");
     }
 }
