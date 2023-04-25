@@ -9,7 +9,7 @@ builder.Host.UseWolverine(opts =>
 {
     var connectionString = builder.Configuration.GetConnectionString("MessageBroker");
     opts.UseRabbitMq(new Uri(connectionString))
-        .UseConventionalRouting() // Should route message from message type name exchange, to queue with same name?
+        .UseConventionalRouting(x => x.QueueNameForListener(s => "THIS_IS_SPARTA")) // Should route message from message type name exchange, to queue with same name?
         .AutoProvision() // Creates all queues and stuff in RabbitMQ
         .PrefixIdentifiers("prefix2000"); // Prefixes queues. Duh.
     
