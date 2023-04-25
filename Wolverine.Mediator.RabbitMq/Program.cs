@@ -11,8 +11,7 @@ builder.Host.UseWolverine(opts =>
     opts.UseRabbitMq(new Uri(connectionString))
         .UseConventionalRouting()
         .AutoProvision()
-        .PrefixIdentifiers("prefix2000")
-    ;
+        .PrefixIdentifiers("prefix2000");
 });
 
 // Logger

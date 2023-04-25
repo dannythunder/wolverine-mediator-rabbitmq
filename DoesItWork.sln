@@ -2,6 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolverine.Mediator.RabbitMq", "Wolverine.Mediator.RabbitMq\Wolverine.Mediator.RabbitMq.csproj", "{A2BCB486-CC4C-4FD8-AFBB-17B67BA5E45F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions files", "Solutions files", "{22DBD45B-BCE7-47B3-B5D2-43E83306DBCD}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
