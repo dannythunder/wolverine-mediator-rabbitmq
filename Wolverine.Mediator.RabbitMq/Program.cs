@@ -13,7 +13,7 @@ builder.Host.UseWolverine(opts =>
         .AutoProvision() // Creates all queues and stuff in RabbitMQ
         .PrefixIdentifiers("prefix2000"); // Prefixes queues. Duh.
     
-        // How to specify that a certain message is internal mediator, and another is an external event via rabbit?
+        // How to specify that a certain message / namespace is internal mediator, and another is an external event via rabbit?
         // see handlers and messages in /Handlers/Bus and /Handlers/Mediator
 });
 
