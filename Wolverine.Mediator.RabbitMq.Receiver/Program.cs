@@ -1,6 +1,7 @@
-using Oakton;
 using Serilog;
 using Wolverine;
+using Wolverine.Mediator.RabbitMq.Common;
+using Wolverine.Mediator.RabbitMq.Messages;
 using Wolverine.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,10 +14,12 @@ builder.Services.AddSwaggerGen();
 builder.Host.UseWolverine(opts =>
 { 
     var connectionString = builder.Configuration.GetConnectionString("MessageBroker");
-    
+
     opts.UseRabbitMq(new Uri(connectionString))
-        .AutoProvision()
-        .UseConventionalRouting();
+        .AddQueueBindings(ExternalMessagesHelper.MESSAGE_TYPES)
+        .AutoProvision();
+
+    opts.AddQueueListeners(ExternalMessagesHelper.MESSAGE_TYPES);
 });
 
 // Logger
@@ -33,4 +36,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-return await app.RunOaktonCommands(args);
+
+app.Run();
+//return await app.RunOaktonCommands(args);
