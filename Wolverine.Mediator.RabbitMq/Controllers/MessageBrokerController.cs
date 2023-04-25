@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Wolverine.Mediator.RabbitMq.Handlers.Bus.Events;
 using Wolverine.Mediator.RabbitMq.Handlers.Mediator.Commands;
 using Wolverine.Mediator.RabbitMq.Handlers.Mediator.Events;
+using Wolverine.Mediator.RabbitMq.Messages.Bus.Command;
+using Wolverine.Mediator.RabbitMq.Messages.Bus.Events;
 
 namespace Wolverine.Mediator.RabbitMq.Controllers;
 
@@ -53,7 +54,22 @@ public class MessageBrokerController : ControllerBase
         
         // Should be sent to rabbitmq
         var remoteEvent = new RemoteEvent(id);
-        await _bus.SendAsync(remoteEvent);
+        await _bus.PublishAsync(remoteEvent);
+
+        return Accepted();
+    }
+    
+    [HttpPost]
+    [Route("SendRemoteCommand")]
+    public async Task<IActionResult> SendRemoteCommand()
+    {
+        var id = Guid.NewGuid();
+        _logger.LogInformation($"Publishing RemoteCommand with id {id}");
+        
+        // Should be sent to rabbitmq
+        var remoteCommand = new RemoteCommand(id);
+        await _bus.SendAsync(remoteCommand);
+
         return Accepted();
     }
     
@@ -66,15 +82,8 @@ public class MessageBrokerController : ControllerBase
         
         // Should be sent locally and crash since there is no handler for it.
         var crashCommand = new CrashCommand(id);
-        
-        try
-        {
-            await _bus.SendAsync(crashCommand);
-            return Accepted("What? Should have crashed, right?");
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
+        await _bus.SendAsync(crashCommand);
+
+        return Ok();
     }
 }

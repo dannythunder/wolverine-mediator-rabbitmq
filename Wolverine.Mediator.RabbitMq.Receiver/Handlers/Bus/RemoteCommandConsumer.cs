@@ -1,6 +1,6 @@
-using Wolverine.Mediator.RabbitMq.Handlers.Bus.Command;
+using Wolverine.Mediator.RabbitMq.Messages.Bus.Command;
 
-namespace Wolverine.Mediator.RabbitMq.Handlers.Bus;
+namespace Wolverine.Mediator.RabbitMq.Receiver.Handlers.Bus;
 
 public class RemoteCommandConsumer
 {

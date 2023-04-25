@@ -1,6 +1,6 @@
-using Wolverine.Mediator.RabbitMq.Handlers.Bus.Events;
+using Wolverine.Mediator.RabbitMq.Messages.Bus.Events;
 
-namespace Wolverine.Mediator.RabbitMq.Handlers.Bus;
+namespace Wolverine.Mediator.RabbitMq.Receiver.Handlers.Bus;
 
 public class RemoteEventHandler
 {
