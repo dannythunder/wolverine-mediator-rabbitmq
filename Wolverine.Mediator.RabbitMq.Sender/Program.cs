@@ -1,7 +1,9 @@
+using Oakton;
 using Serilog;
 using Wolverine;
-using Wolverine.Mediator.RabbitMq.Common;
-using Wolverine.Mediator.RabbitMq.Receiver.Helpers;
+using Wolverine.Mediator.RabbitMq.Sender.Messages.Bus.Events;
+using Wolverine.Mediator.RabbitMq.ReceiverDual.Messages.Bus.Command;
+using Wolverine.Mediator.RabbitMq.Sender.Helpers;
 using Wolverine.RabbitMQ;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,24 +15,26 @@ builder.Services.AddSwaggerGen();
 // Wolverine
 builder.Host.UseWolverine(opts =>
 {
-    var queueName = "Receiver";
     var connectionString = builder.Configuration.GetConnectionString("MessageBroker");
-
+    
     opts.UseRabbitMq(new Uri(connectionString))
-        .AddQueueBindings(queueName, MessagebrokerMessagesHelper.SERVICE_COMMANDS)  // Messages for this service, empty for now
-        .AddQueueBindings(queueName, MessagebrokerMessagesHelper.EXTERNAL_EVENTS)   // Events from other services
         .AutoProvision();
+    
+    // Bind outgoing messages, could this be magically done if there is a lot of events/commands? 
+    // Hiding in extensions to not bloat the setup
+    opts.AddEventForPublishing();
+    opts.AddCommandsForPublishing();
 
-    opts.ListenToRabbitQueue(queueName, q =>
-    {
-        q.IsDurable = true;
-    });
 });
 
-// Logger
+// Setup logger
 builder.Host.UseSerilog((context, config) =>
     config.ReadFrom.Configuration(context.Configuration));
+
 var app = builder.Build();
+
+// Logger
+app.UseSerilogRequestLogging();
 
 if (app.Environment.IsDevelopment())
 {
@@ -42,5 +46,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
-app.Run();
-//return await app.RunOaktonCommands(args);
+//app.Run();
+return await app.RunOaktonCommands(args);

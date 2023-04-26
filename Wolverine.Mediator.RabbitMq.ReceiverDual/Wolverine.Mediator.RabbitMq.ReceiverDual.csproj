@@ -16,14 +16,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\Wolverine.Mediator.RabbitMq.Common\Wolverine.Mediator.RabbitMq.Common.csproj" />
       <ProjectReference Include="..\Wolverine.Mediator.RabbitMq.Sender.Messages\Wolverine.Mediator.RabbitMq.Sender.Messages.csproj" />
+      <ProjectReference Include="..\Wolverine.Mediator.RabbitMq.ReceiverDual.Messages\Wolverine.Mediator.RabbitMq.ReceiverDual.Messages.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="RunThemAll" type="CompoundRunConfigurationType">
+    <toRun name="Wolverine.Mediator.RabbitMq.Receiver: http" type="LaunchSettings" />
+    <toRun name="Wolverine.Mediator.RabbitMq.ReceiverDual: http" type="LaunchSettings" />
+    <toRun name="Wolverine.Mediator.RabbitMq: http" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>
