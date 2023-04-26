@@ -17,8 +17,8 @@ builder.Host.UseWolverine(opts =>
     var connectionString = builder.Configuration.GetConnectionString("MessageBroker");
 
     opts.UseRabbitMq(new Uri(connectionString))
-        .AddQueueBindings(queueName, MessagebrokerMessagesHelper.SERVICE_COMMANDS)  // Messages for this service, empty for now
-        .AddQueueBindings(queueName, MessagebrokerMessagesHelper.EXTERNAL_EVENTS)   // Events from other services
+        .AddQueueBindingsForMessages(queueName, MessagebrokerMessagesHelper.SERVICE_COMMANDS)  // Messages for this service, empty for now
+        .AddQueueBindingsForMessages(queueName, MessagebrokerMessagesHelper.EXTERNAL_EVENTS)   // Events from other services
         .AutoProvision();
 
     opts.ListenToRabbitQueue(queueName, q =>

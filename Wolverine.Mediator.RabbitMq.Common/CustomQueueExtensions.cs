@@ -4,7 +4,7 @@ namespace Wolverine.Mediator.RabbitMq.Common;
 
 public static class CustomQueueExtensions
 {
-    public static RabbitMqTransportExpression AddQueueBindings(this RabbitMqTransportExpression opts, string queueName, params Type[] types)
+    public static RabbitMqTransportExpression AddQueueBindingsForMessages(this RabbitMqTransportExpression opts, string queueName, params Type[] types)
     {
         foreach (var type in types)
         {
