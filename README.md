@@ -1,4 +1,17 @@
 # wolverine-mediator-rabbitmq
-A test repo for Wolverine´s support for mediator pattern and rabbitmq for messaging
 
-Trying to get it to a working state with mixing wolverine's local mediator, and rabbitmq's remote queuing and stuff.
+### State right now:
+
+It' sending and gets received on the right queue, and get fetched by the right service.
+Local messages also work.
+
+Wolverine.Mediator.RabbitMq.Sender can send it's own event
+- Wolverine.Mediator.RabbitMq.Receiver fetches it in the right handler
+- Wolverine.Mediator.RabbitMq.ReceiverDual fetches it in the right handler
+
+Wolverine.Mediator.RabbitMq.Sender can sent the command from Wolverine.Mediator.RabbitMq.ReceiverDual
+- Wolverine.Mediator.RabbitMq.ReceiverDual fetches it in the right handler
+
+I've hidden som setup in extensions, like what exchange to send messages, and bind queues to those exchanges
+
+This is a desired state for functionality. There is probably a lot to fix when it comes to settings.
