@@ -5,7 +5,7 @@ namespace Wolverine.Mediator.RabbitMq.ReceiverDual.Helpers;
 
 public class MessagebrokerMessagesHelper
 {
-    public static Type[] EXTERNAL_EVENTS => new[]
+    public static Type[] EXTERNAL_EVENTS_TYPES => new[]
     {
         // From service Wolverine.Mediator.RabbitMq.Sender
         typeof(RemoteEvent),
@@ -15,7 +15,7 @@ public class MessagebrokerMessagesHelper
         // From a third service
     };
     
-    public static Type[] SERVICE_COMMANDS => new[]
+    public static Type[] SERVICE_COMMANDS_TYPES => new[]
     {
         // From service Wolverine.Mediator.RabbitMq.Sender
         typeof(RemoteCommand)
