@@ -22,6 +22,9 @@ builder.Host.UseWolverine(opts =>
     
     // Bind outgoing messages, could this be magically done if there is a lot of events/commands? 
     // Hiding in extensions to not bloat the setup
+    
+    // These are essatially:
+    // opts.PublishMessage<MyMessage>().ToRabbitExchange(exchangeName: typeof(MyMessage).Name);
     opts.AddEventForPublishing();
     opts.AddCommandsForPublishing();
 

@@ -18,7 +18,6 @@ builder.Host.UseWolverine(opts =>
     var connectionString = builder.Configuration.GetConnectionString("MessageBroker");
     
     opts.UseRabbitMq(new Uri(connectionString))
-        
         // These are essentially
         //opts.DeclareExchange(exchangeName: type.Name).BindExchange(exchangeName: type.Name).ToQueue(queueName: queueName, bindingKey: type.Name);
         .AddQueueBindingsForMessages(queueName, MessagebrokerMessagesHelper.SERVICE_COMMANDS_TYPES)  // Messages for this service

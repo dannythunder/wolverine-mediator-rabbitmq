@@ -10,6 +10,7 @@ public static class ServiceMessagesRegisterHelper
     // Events published from this service
     public static WolverineOptions AddEventForPublishing(this WolverineOptions opts)
     {
+        
         opts.PublishMessage<RemoteEvent>().ToRabbitExchange(typeof(RemoteEvent).Name); // Event
         
         return opts;
@@ -18,7 +19,8 @@ public static class ServiceMessagesRegisterHelper
     // Commands to other services published from this service
     public static WolverineOptions AddCommandsForPublishing(this WolverineOptions opts)
     {
-        opts.PublishMessage<RemoteCommand>().ToRabbitExchange(ReceiverDualQueueName.EXCHANGE_NAME, ex => ex.BindQueue(ReceiverDualQueueName.QUEUE_NAME));
+        // Send to specific exchange, can this be done in another more dynamic way?
+        opts.PublishMessage<RemoteCommand>().ToRabbitExchange(ReceiverDualQueueName.EXCHANGE_NAME);
         
         return opts;
     }
