@@ -1,4 +1,4 @@
 namespace Wolverine.Mediator.RabbitMq.Sender.Messages.Bus.Events;
 
-public record RemoteEvent
+public record SenderRemoteEvent
 (Guid Id);

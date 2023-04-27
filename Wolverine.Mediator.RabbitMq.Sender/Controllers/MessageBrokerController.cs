@@ -53,7 +53,7 @@ public class MessageBrokerController : ControllerBase
         _logger.LogInformation($"Publishing RemoteEvent with id {id}");
         
         // Should be sent to rabbitmq
-        var remoteEvent = new RemoteEvent(id);
+        var remoteEvent = new SenderRemoteEvent(id);
         await _bus.PublishAsync(remoteEvent);
 
         return Accepted();
@@ -67,7 +67,7 @@ public class MessageBrokerController : ControllerBase
         _logger.LogInformation($"Publishing RemoteCommand with id {id}");
         
         // Should be sent to rabbitmq
-        var remoteCommand = new RemoteCommand(id);
+        var remoteCommand = new ReceiverDualRemoteCommand(id);
         await _bus.SendAsync(remoteCommand);
 
         return Accepted();

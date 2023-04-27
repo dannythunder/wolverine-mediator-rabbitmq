@@ -8,7 +8,7 @@ public class MessagebrokerMessagesHelper
     public static Type[] EXTERNAL_EVENTS_TYPES => new[]
     {
         // From service Wolverine.Mediator.RabbitMq.Sender
-        typeof(RemoteEvent),
+        typeof(SenderRemoteEvent),
         
         // From a second service
         
@@ -18,7 +18,7 @@ public class MessagebrokerMessagesHelper
     public static Type[] SERVICE_COMMANDS_TYPES => new[]
     {
         // From service Wolverine.Mediator.RabbitMq.Sender
-        typeof(RemoteCommand)
+        typeof(ReceiverDualRemoteCommand)
         
         // From a second service
         

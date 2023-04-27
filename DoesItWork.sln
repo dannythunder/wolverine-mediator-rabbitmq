@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions files", "Solution
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
 		README.md = README.md
+		overview.svg = overview.svg
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wolverine.Mediator.RabbitMq.Receiver", "Wolverine.Mediator.RabbitMq.Receiver\Wolverine.Mediator.RabbitMq.Receiver.csproj", "{669E1F02-20DB-4178-8D17-522376E7B177}"
